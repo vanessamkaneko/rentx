@@ -1,10 +1,15 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Car } from "@modules/cars/infra/typeorm/entities/Car";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuidv4 } from "uuid"
 
 @Entity("rentals")
 class Rental {
   @PrimaryColumn()
   id?: string;
+
+  @ManyToOne(() => Car)
+  @JoinColumn({ name: "car_id" })
+  car: Car | undefined
 
   @Column({ type: 'varchar', nullable: true })
   car_id: string | undefined;
